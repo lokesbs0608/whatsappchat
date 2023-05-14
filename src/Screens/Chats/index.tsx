@@ -3,7 +3,7 @@ import {FlatList} from 'react-native';
 import ChatListItem from '../../Components/ChatListItem';
 import chats from '../../database/chats.json';
 
-export default function Chat() {
+export default function ChatList() {
   return (
     <FlatList
       data={chats}
