@@ -1,12 +1,16 @@
 import React from 'react';
 import {View, Text, Image} from 'react-native';
 import styles from './styles';
+import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+dayjs.extend(duration);
 
 interface Props {
   data: any;
 }
 
 export default function ChatListItem({data}: Props) {
+  console.log(data);
   return (
     <View style={styles.container}>
       <Image source={{uri: data?.user?.image}} style={styles.image} />
@@ -15,9 +19,13 @@ export default function ChatListItem({data}: Props) {
           <Text numberOfLines={1} style={styles.name}>
             {data?.user?.name}
           </Text>
-          <Text style={styles.sub_title}>{data?.last_message.created_at}</Text>
+          <Text style={styles.sub_title}>
+            {dayjs
+              .duration(dayjs().diff(dayjs(data?.lastMessage?.createdAt)))
+              .humanize()}
+          </Text>
         </View>
-        <Text style={styles.sub_title}>{data?.last_message.text}</Text>
+        <Text style={styles.sub_title}>{data?.lastMessage.text}</Text>
       </View>
     </View>
   );
